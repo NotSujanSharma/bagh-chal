@@ -20,7 +20,7 @@ const Board: React.FC<BoardProps> = ({ gameState, onCellClick }) => {
     return (
       <div
         key={index}
-        className={`absolute w-8 h-8 -translate-x-4 -translate-y-4 cursor-pointer flex items-center justify-center text-2xl
+        className={`absolute w-8 h-8 -translate-x-4 -translate-y-4 cursor-pointer flex items-center justify-center text-4xl
           ${isSelected ? 'ring-4 ring-blue-400' : ''}
           ${isValidMove ? 'bg-green-200 rounded-full' : ''}`}
         style={{
