@@ -1,4 +1,4 @@
-import { GameState, Position } from '../../types/game';
+import { GameState } from '../../types/game';
 import { WINNING_CAPTURES } from '../../constants/game';
 import { indexToPosition } from './board';
 import { getValidMoves } from './moves';

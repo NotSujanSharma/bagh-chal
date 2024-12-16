@@ -20,7 +20,7 @@ const Board: React.FC<BoardProps> = ({ gameState, onCellClick }) => {
     return (
       <div
         key={index}
-        className={`absolute w-4 h-4 -translate-x-2 -translate-y-2 cursor-pointer
+        className={`absolute w-8 h-8 -translate-x-4 -translate-y-4 cursor-pointer flex items-center justify-center text-2xl
           ${isSelected ? 'ring-4 ring-blue-400' : ''}
           ${isValidMove ? 'bg-green-200 rounded-full' : ''}`}
         style={{
@@ -30,9 +30,7 @@ const Board: React.FC<BoardProps> = ({ gameState, onCellClick }) => {
         onClick={() => onCellClick(position)}
       >
         {piece && (
-          <div className={`w-full h-full rounded-full ${
-            piece === 'tiger' ? 'bg-orange-500' : 'bg-gray-700'
-          }`} />
+          piece === 'tiger' ? '🐯' : '🐐'
         )}
       </div>
     );
