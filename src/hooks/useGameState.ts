@@ -36,9 +36,14 @@ export const useGameState = () => {
     }
   };
 
+  const resetGame = () => {
+    setGameState(createInitialGameState());
+  };
+
   return {
     gameState,
     handleCellClick,
-    gameStatus: isGameOver(gameState)
+    gameStatus: isGameOver(gameState),
+    resetGame
   };
 };

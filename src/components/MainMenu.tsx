@@ -1,6 +1,7 @@
 import React from 'react';
-import { Volume2, VolumeX, Trophy, Play, X } from 'lucide-react';
-import { useAudio } from '../hooks/useAudio';
+import { Volume2, VolumeX, Trophy, Play } from 'lucide-react';
+import { useState } from 'react';
+import { motion } from 'framer-motion';
 
 interface MainMenuProps {
   onStartGame: () => void;
@@ -8,49 +9,57 @@ interface MainMenuProps {
   onExit: () => void;
 }
 
-const MainMenu: React.FC<MainMenuProps> = ({ onStartGame, onShowHighScores, onExit }) => {
-  const { isMuted, volume, toggleMute, handleVolumeChange } = useAudio();
+const MainMenu: React.FC<MainMenuProps> = ({ onStartGame, onShowHighScores }) => {
+
+  const [isMuted, setIsMuted] = useState(false);
+  const [volume, setVolume] = useState(50);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-100 to-orange-200 flex flex-col items-center justify-center p-4">
-      <div className="w-full max-w-md bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl p-8 space-y-8">
-        <div className="text-center space-y-2">
-          <h1 className="text-4xl md:text-5xl font-bold text-amber-800">
-            Baghchal
-          </h1>
-          <p className="text-amber-600">Tiger and Goats</p>
-        </div>
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 flex flex-col items-center justify-center p-4"
+    >
+      <motion.div
+        initial={{ y: -50 }}
+        animate={{ y: 0 }}
+        className="w-full max-w-md bg-slate-800/50 backdrop-blur-sm rounded-2xl shadow-xl p-8 space-y-8 border border-amber-600/20"
+      >
+        <motion.div
+          animate={{ scale: [1, 1.02, 1] }}
+          transition={{ duration: 2, repeat: Infinity }}
+          className="text-center space-y-2"
+        >
+          <h1 className="text-5xl font-bold text-amber-500">Baghchal</h1>
+          <p className="text-amber-400/80">Tiger and Goats</p>
+        </motion.div>
 
         <div className="space-y-4">
-          <button
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             onClick={onStartGame}
-            className="w-full flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-600 text-white py-3 px-6 rounded-lg transform transition-all hover:scale-105 active:scale-95"
+            className="w-full flex items-center justify-center gap-2 bg-amber-600 hover:bg-amber-700 text-white py-3 px-6 rounded-lg"
           >
             <Play size={20} />
             Start Game
-          </button>
+          </motion.button>
 
-          <button
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             onClick={onShowHighScores}
-            className="w-full flex items-center justify-center gap-2 bg-amber-100 hover:bg-amber-200 text-amber-800 py-3 px-6 rounded-lg transform transition-all hover:scale-105 active:scale-95"
+            className="w-full flex items-center justify-center gap-2 bg-slate-700 hover:bg-slate-600 text-amber-400 py-3 px-6 rounded-lg"
           >
             <Trophy size={20} />
             High Scores
-          </button>
-
-          <button
-            onClick={onExit}
-            className="w-full flex items-center justify-center gap-2 bg-red-100 hover:bg-red-200 text-red-800 py-3 px-6 rounded-lg transform transition-all hover:scale-105 active:scale-95"
-          >
-            <X size={20} />
-            Exit
-          </button>
+          </motion.button>
         </div>
 
-        <div className="flex items-center justify-center gap-4 pt-4 border-t border-amber-200">
+        <div className="flex items-center justify-center gap-4 pt-4 border-t border-slate-700">
           <button
-            onClick={toggleMute}
-            className="p-2 rounded-full hover:bg-amber-100 transition-colors"
+            onClick={() => setIsMuted(!isMuted)}
+            className="p-2 rounded-full hover:bg-slate-700 transition-colors text-amber-400"
           >
             {isMuted ? <VolumeX size={24} /> : <Volume2 size={24} />}
           </button>
@@ -59,12 +68,12 @@ const MainMenu: React.FC<MainMenuProps> = ({ onStartGame, onShowHighScores, onEx
             min="0"
             max="100"
             value={volume}
-            onChange={handleVolumeChange}
-            className="w-32 h-2 bg-amber-200 rounded-lg appearance-none cursor-pointer"
+            onChange={(e) => setVolume(Number(e.target.value))}
+            className="w-32 h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer"
           />
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 
